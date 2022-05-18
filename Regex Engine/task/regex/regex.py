@@ -28,4 +28,5 @@ def reg_engine(data):
         return reg_engine(f'{regex}|{user_input[1:]}')
 
 
-print(reg_engine(input()))
+if __name__ == "__main__":
+    print(reg_engine(input()))
