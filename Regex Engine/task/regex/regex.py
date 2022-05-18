@@ -22,8 +22,14 @@ def reg_engine(data):
     regex, user_input = data.split('|')
     if regex.startswith('^') or regex.endswith('$'):
         if regex.startswith('^') and regex.endswith('$'):
+            if len(regex) == 2:
+                return False
             return regex[1:-1] == user_input
+        if len(regex) == 1:
+            return True
         if regex.startswith('^'):
+            if len(regex) == 1:
+                return True
             return reg_engine(f'{regex[1:]}|{user_input[:len(regex) - 1]}')
         if regex.endswith('$'):
             return reg_engine(f'{regex[:-1]}|{user_input[-len(regex) + 1:]}')

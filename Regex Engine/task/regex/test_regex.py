@@ -28,6 +28,16 @@ class TestRegex(unittest.TestCase):  # a test case for the regex.py module
         self.assertFalse(regex.reg_engine('app$|apple'), 'Error when comparing "app$|apple"')
         self.assertFalse(regex.reg_engine('^le|apple'), 'Error when comparing "^le|apple"')
 
+    def test_corners(self):
+        self.assertTrue(regex.reg_engine('.|a'), 'Error when comparing ".|a"')
+        self.assertTrue(regex.reg_engine('|a'), 'Error when comparing "|a"')
+        self.assertTrue(regex.reg_engine('|'), 'Error when comparing "|"')
+        self.assertTrue(regex.reg_engine('^|apple'), 'Error when comparing "^|apple"')
+        self.assertTrue(regex.reg_engine('$|apple'), 'Error when comparing "$|apple"')
+        self.assertFalse(regex.reg_engine('a|'), 'Error when comparing "a|"')
+        self.assertFalse(regex.reg_engine('^$|'), 'Error when comparing "^$|"')
+        self.assertFalse(regex.reg_engine('^$|apple'), 'Error when comparing "^$|apple"')
+
 
 if __name__ == "__main__":
     unittest.main()
