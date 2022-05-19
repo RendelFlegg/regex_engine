@@ -37,6 +37,30 @@ class TestRegex(unittest.TestCase):  # a test case for the regex.py module
         self.assertFalse(regex.reg_engine('a|'), 'Error when comparing "a|"')
         self.assertFalse(regex.reg_engine('^$|'), 'Error when comparing "^$|"')
         self.assertFalse(regex.reg_engine('^$|apple'), 'Error when comparing "^$|apple"')
+        self.assertTrue(regex.reg_engine('.*|aaa'), 'Error when comparing ".*|aaa"')
+        self.assertTrue(regex.reg_engine('^no+|noooooooope'), 'Error when comparing "^no+|noooooooope"')
+        self.assertTrue(regex.reg_engine('^no+pe$|noooooooope'), 'Error when comparing "^no+pe$|noooooooope"')
+        self.assertTrue(regex.reg_engine('^.*c$|abcabc'), 'Error when comparing "^.*c$|abcabc"')
+
+    def test_question_mark(self):
+        self.assertTrue(regex.reg_engine('colou?r|color'), 'Error when comparing "colou?r|color"')
+        self.assertTrue(regex.reg_engine('colou?r|colour'), 'Error when comparing "colou?r|colour"')
+        self.assertFalse(regex.reg_engine('colou?r|colouur'), 'Error when comparing "colou?r|colouur"')
+
+    def test_asterisk(self):
+        self.assertTrue(regex.reg_engine('colou*r|color'), 'Error when comparing "colou*r|color"')
+        self.assertTrue(regex.reg_engine('colou*r|colour'), 'Error when comparing "colou*r|colour"')
+        self.assertTrue(regex.reg_engine('colou*r|colouur'), 'Error when comparing "colou*r|colouur"')
+        self.assertTrue(regex.reg_engine('col.*r|color'), 'Error when comparing "col.*r|color"')
+        self.assertTrue(regex.reg_engine('col.*r|colour'), 'Error when comparing "col.*r|colour"')
+        self.assertTrue(regex.reg_engine('col.*r|colr'), 'Error when comparing "col.*r|colr"')
+        self.assertTrue(regex.reg_engine('col.*r|collar'), 'Error when comparing "col.*r|collar"')
+        self.assertFalse(regex.reg_engine('col.*r$|colors'), 'Error when comparing "col.*r|colors"')
+
+    def test_plus(self):
+        self.assertTrue(regex.reg_engine('colou+r|colour'), 'Error when comparing "colou+r|colour"')
+        self.assertTrue(regex.reg_engine('colou+r|colouur'), 'Error when comparing "colou+r|colouur"')
+        self.assertFalse(regex.reg_engine('colou+r|color'), 'Error when comparing "colou+r|color"')
 
 
 if __name__ == "__main__":
