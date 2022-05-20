@@ -62,6 +62,16 @@ class TestRegex(unittest.TestCase):  # a test case for the regex.py module
         self.assertTrue(regex.reg_engine('colou+r|colouur'), 'Error when comparing "colou+r|colouur"')
         self.assertFalse(regex.reg_engine('colou+r|color'), 'Error when comparing "colou+r|color"')
 
+    def test_backslash(self):
+        self.assertTrue(regex.reg_engine('\.$|end.'), 'Error when comparing "\.$|end."')
+        self.assertFalse(regex.reg_engine('\.$|end'), 'Error when comparing "\.$|end"')
+        self.assertTrue(regex.reg_engine('3\+3|3+3=6'), 'Error when comparing "3\+3|3+3=6"')
+        self.assertTrue(regex.reg_engine('\?|Is this working?'), 'Error when comparing "\?|Is this working?"')
+        # self.assertTrue(regex.reg_engine('\\|\'), 'Error when comparing "\\|\"')
+        self.assertFalse(regex.reg_engine('colou\?r|color'), 'Error when comparing "colou\?r|color"')
+        self.assertFalse(regex.reg_engine('colou\?r|colour'), 'Error when comparing "colou\?r|colour"')
+        self.assertTrue(regex.reg_engine('colou\?r|colou?r'), 'Error when comparing "colou\?r|colou?r"')
+
 
 if __name__ == "__main__":
     unittest.main()
